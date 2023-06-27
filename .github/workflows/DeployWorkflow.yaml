@@ -2,24 +2,6 @@ name: build and deploy LA
 
 on:
   workflow_dispatch:
-    inputs:
-      ResourceGroupName: ${{env.RG}}
-        description: 'Name of the Resource Group'
-        required: true
-      LogicAppName: ${{env.LANAME}}
-        description: 'Name of the Logic App'
-        required: true
-
-
-# CONFIGURATION
-# For help, go to https://github.com/Azure/Actions
-#
-# 1. Paste the RBAC json into the following secret in your repository:
-#   AZURE_RBAC_CREDENTIALS
-#
-# 2. Change these variables for your configuration:
-
-
 jobs:
   build-and-deploy:
     runs-on: windows-latest
@@ -39,8 +21,8 @@ jobs:
       with:
         inlineScript: |
           $profile = Get-AzWebAppPublishingProfile `
-              -ResourceGroupName ${{github.event.inputs.ResourceGroupName}} `
-              -Name ${{github.event.inputs.LogicAppName}}
+              -ResourceGroupName  ${{env.RG}} `
+              -Name ${{env.LANAME}}
           $profile = $profile.Replace("`r", "").Replace("`n", "")
           Write-Output "::set-output name=profile::$profile"
         azPSVersion: latest
