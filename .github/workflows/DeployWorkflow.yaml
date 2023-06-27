@@ -3,10 +3,10 @@ name: build and deploy LA
 on:
   workflow_dispatch:
     inputs:
-      ResourceGroupName:
+      ResourceGroupName: ${{env.RG}}
         description: 'Name of the Resource Group'
         required: true
-      LogicAppName:
+      LogicAppName: ${{env.LANAME}}
         description: 'Name of the Logic App'
         required: true
 
